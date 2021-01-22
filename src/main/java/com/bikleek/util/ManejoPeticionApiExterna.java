@@ -16,6 +16,7 @@ import java.net.http.HttpResponse;
 public class ManejoPeticionApiExterna {
 
 	private static final String URL_BACKEND = "http://localhost:8080/api/clientes";
+	private static final int CODIGO_OK = 200;
 	
 	public static List<Cliente> peticionGet() throws IOException, InterruptedException {
 		
@@ -88,8 +89,6 @@ public class ManejoPeticionApiExterna {
 		boolean respuesta = false;
 		
 		String urlConParametro = URL_BACKEND+"/"+clienteAEliminar.getId();
-		
-		System.out.println("rul con parametro"+urlConParametro);
 
 		HttpClient client = HttpClient.newHttpClient();
 		
@@ -101,7 +100,7 @@ public class ManejoPeticionApiExterna {
 
 		HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 		
-		if(response.statusCode()==200) {
+		if(response.statusCode()==CODIGO_OK) {
 			respuesta = true;
 		}
 		

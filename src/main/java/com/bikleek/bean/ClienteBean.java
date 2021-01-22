@@ -18,7 +18,6 @@ public class ClienteBean {
 	
 	private List<Cliente> clientes = new ArrayList<Cliente>();
 	
-	
 	private String mensajeErrorOExito = "";
 	private UIData tblListaDatos;
 	Cliente cliente = new Cliente();
@@ -49,33 +48,47 @@ public class ClienteBean {
 		if(clienteCreado != null) {
 			mensajeErrorOExito = "Cliente creado exitosamente con el id "+clienteCreado.getId();
 			clientes.add(clienteCreado);
+			
 			this.nombresClienteNuevo = "";
 			this.apellidosClienteNuevo = "";
 			this.correoClienteNuevo = "";
 			this.direccionClienteNuevo = "";
+			
 		}else {
 			mensajeErrorOExito = "No fue posible crear el cliente "+clienteNuevo.getNombre();
 		}
 			
 	}
 	
+	public void habilitarEdicion(ActionEvent event) {
+		mensajeErrorOExito = "";
+		Cliente clienteActual = (Cliente) getTblListaDatos().getRowData();
+		clienteActual.setEditable(true);
+	}
+	
+	public void cancelarActualizacion(ActionEvent event) {
+		mensajeErrorOExito = "";
+		Cliente clienteActual = (Cliente) getTblListaDatos().getRowData();
+		clienteActual.setEditable(false);
+	}
+	
 	public void actualizarCliente(ActionEvent event) throws IOException, InterruptedException {
 		mensajeErrorOExito = "";
 		Cliente clienteActual = (Cliente) getTblListaDatos().getRowData();
+		
+		clienteActual.setFechaCreacion(null);
+		
 		Cliente clienteActualizado = null;
 		
-		clienteActualizado = ManejoPeticionApiExterna.peticionPost(clienteActual);
+		clienteActualizado = ManejoPeticionApiExterna.peticionPut(clienteActual);
 		
 		if(clienteActualizado != null) {
 			mensajeErrorOExito = "Cliente actualizado exitosamente con el id "+clienteActualizado.getId();
-			clientes.add(clienteActualizado);
+			clientes = ManejoPeticionApiExterna.peticionGet();
 		}else {
 			mensajeErrorOExito = "No fue posible actualizar el cliente "+clienteActual.getNombre();
 		}
 		
-		
-//        rol.setEditable(true);
-//        mensajeGuardado = false;
 	}
 	
 	public void eliminarCliente(ActionEvent event) throws IOException, InterruptedException {
@@ -83,7 +96,7 @@ public class ClienteBean {
 		Cliente clienteActual = (Cliente) getTblListaDatos().getRowData();
 		if (ManejoPeticionApiExterna.peticionDelete(clienteActual)) {
 			mensajeErrorOExito = "Cliente eliminado con exito";
-			//clientes = ManejoPeticionApiExterna.peticionGet();
+			clientes = ManejoPeticionApiExterna.peticionGet();
 		}else {
 			mensajeErrorOExito = "No fue posible eliminar el cliente";
 		}

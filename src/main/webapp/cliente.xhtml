@@ -10,9 +10,11 @@
         <title>Clientes</title>
     </h:head>
     <h:body>
+    <p:panel>
+    	<h:form>
     	<h:outputText value="#{clienteBean.mensajeErrorOExito}"></h:outputText>
-    	<h2>Administracion de clientes</h2>
-     	<h:form>
+    	<h2>Administración de clientes</h2>
+     	
 		<h5>Nombres</h5>
     	<span class="ui-float-label">
 	       <p:inputText id="nombre-input" value="#{clienteBean.nombresClienteNuevo}"/>
@@ -28,65 +30,62 @@
 	       <p:inputText id="correo-input" value="#{clienteBean.correoClienteNuevo}"/>
 	       <p:outputLabel for="@previous" value="Correo"/>
    		</span>
-   		<h5>Direccion</h5>
+   		<h5>Dirección</h5>
     	<span class="ui-float-label">
 	       <p:inputText id="direccion-input" value="#{clienteBean.direccionClienteNuevo}"/>
 	       <p:outputLabel for="@previous" value="Direccion"/>
    		</span>
-   		
+   		<br></br>
    		<p:commandButton value="Crear Cliente" actionListener="#{clienteBean.crearCliente}"/>
    		
    		<div class="card">
         <h2>CLIENTES</h2>
-        <p:dataTable id="basicDT" var="cliente" value="#{clienteBean.clientes}"
-            binding="#{clienteBean.tblListaDatos}">
-            <p:column headerText="Identificador">
-                <h:outputText value="#{cliente.id}" />
-            </p:column>
-
-            <p:column headerText="Nombre(s)">
-                <h:outputText value="#{cliente.nombre}" />
-            </p:column>
-
-            <p:column headerText="Apellido(s)">
-                <h:outputText value="#{cliente.apellido}" />
-            </p:column>
-
-            <p:column headerText="Correo">
-                <h:outputText value="#{cliente.correo}" />
-            </p:column>
-            
-            <p:column headerText="Direccion">
-                <h:outputText value="#{cliente.direccion}" />
-            </p:column>
-            
-            <p:column headerText="Fecha de creacion">
-                <h:outputText value="#{cliente.fechaCreacion}" />
-            </p:column>
-            
-            <p:column headerText="Acciones">
-            	<p:commandButton value="Actualizar" 
-            					 actionListener="#{clienteBean.actualizarCliente}"/>
-    			<p:commandButton value="Eliminar" 
-    							 actionListener="#{clienteBean.eliminarCliente}"/>
-            </p:column>
-            
-<!--             <p:column style="width:3rem;text-align: center"> -->
-<!--                 <p:commandButton update=":form:productDetail" oncomplete="PF('productDialog').show()" -->
-<!--                                  icon="pi pi-search" title="View"> -->
-<!--                     <f:setPropertyActionListener value="#{product}" -->
-<!--                                                  target="#{dtSelectionView.selectedProduct}"/> -->
-<!--                 </p:commandButton> -->
-<!--             </p:column> -->
-        </p:dataTable>
-    </div>
+        	<p:dataTable id="basicDT" var="cliente" value="#{clienteBean.clientes}"
+	            binding="#{clienteBean.tblListaDatos}">
+	            <p:column headerText="Identificador">
+	                <h:outputText value="#{cliente.id}" />
+	            </p:column>
+	
+	            <p:column headerText="Nombre(s)">
+	                <p:inputText value="#{cliente.nombre}" rendered="#{cliente.editable}"/>
+	                <h:outputText value="#{cliente.nombre}" rendered="#{!cliente.editable}"/>
+	            </p:column>
+	
+	            <p:column headerText="Apellido(s)">
+	                <p:inputText value="#{cliente.apellido}" rendered="#{cliente.editable}"/>
+	                <h:outputText value="#{cliente.apellido}" rendered="#{!cliente.editable}"/>
+	            </p:column>
+	
+	            <p:column headerText="Correo">
+	            	<p:inputText value="#{cliente.correo}" rendered="#{cliente.editable}"/>
+	                <h:outputText value="#{cliente.correo}" rendered="#{!cliente.editable}"/>
+	            </p:column>
+	            
+	            <p:column headerText="Dirección">
+	            	<p:inputText value="#{cliente.direccion}" rendered="#{cliente.editable}"/>
+	                <h:outputText value="#{cliente.direccion}" rendered="#{!cliente.editable}"/>
+	            </p:column>
+	            
+	            <p:column headerText="Fecha de creación">
+	                <h:outputText value="#{cliente.fechaCreacion}">
+	                	<f:convertDateTime pattern="dd/MM/yyyy" />
+	                </h:outputText>
+	            </p:column>
+	            
+	            <p:column headerText="Acciones">
+	            	<p:commandButton value="Editar" rendered="#{!cliente.editable}" 
+	            					 actionListener="#{clienteBean.habilitarEdicion}"/>
+	            	<p:commandButton value="Actualizar" rendered="#{cliente.editable}" 
+	            					 actionListener="#{clienteBean.actualizarCliente}"/>
+	            	<p:commandButton value="Cancelar actualización" rendered="#{cliente.editable}"
+	            					 actionListener="#{clienteBean.cancelarActualizacion}"/>
+	    			<p:commandButton value="Eliminar" 
+	    							 actionListener="#{clienteBean.eliminarCliente}"/>
+	            </p:column>
+        	</p:dataTable>
+    	</div>
    		
-   		
-   		
-   		
-   		
-   		
-   		
-	</h:form>
+   		</h:form>
+   		</p:panel>
     </h:body>
 </html>
