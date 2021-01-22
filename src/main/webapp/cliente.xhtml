@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <h:head>
+        <title>Clientes</title>
+    </h:head>
+    <h:body>
+    	<h:outputText value="#{clienteBean.mensajeErrorOExito}"></h:outputText>
+    	<h2>Administracion de clientes</h2>
+     	<h:form>
+		<h5>Nombres</h5>
+    	<span class="ui-float-label">
+	       <p:inputText id="nombre-input" value="#{clienteBean.nombresClienteNuevo}"/>
+	       <p:outputLabel for="@previous" value="Nombre(s)"/>
+   		</span>
+   		<h5>Apellidos</h5>
+    	<span class="ui-float-label">
+	       <p:inputText id="apellido-input" value="#{clienteBean.apellidosClienteNuevo}"/>
+	       <p:outputLabel for="@previous" value="Apellido(s)"/>
+   		</span>
+   		<h5>Correo</h5>
+    	<span class="ui-float-label">
+	       <p:inputText id="correo-input" value="#{clienteBean.correoClienteNuevo}"/>
+	       <p:outputLabel for="@previous" value="Correo"/>
+   		</span>
+   		<h5>Direccion</h5>
+    	<span class="ui-float-label">
+	       <p:inputText id="direccion-input" value="#{clienteBean.direccionClienteNuevo}"/>
+	       <p:outputLabel for="@previous" value="Direccion"/>
+   		</span>
+   		
+   		<p:commandButton value="Crear Cliente" actionListener="#{clienteBean.crearCliente}"/>
+   		
+   		<div class="card">
+        <h2>CLIENTES</h2>
+        <p:dataTable id="basicDT" var="cliente" value="#{clienteBean.clientes}"
+            binding="#{clienteBean.tblListaDatos}">
+            <p:column headerText="Identificador">
+                <h:outputText value="#{cliente.id}" />
+            </p:column>
+
+            <p:column headerText="Nombre(s)">
+                <h:outputText value="#{cliente.nombre}" />
+            </p:column>
+
+            <p:column headerText="Apellido(s)">
+                <h:outputText value="#{cliente.apellido}" />
+            </p:column>
+
+            <p:column headerText="Correo">
+                <h:outputText value="#{cliente.correo}" />
+            </p:column>
+            
+            <p:column headerText="Direccion">
+                <h:outputText value="#{cliente.direccion}" />
+            </p:column>
+            
+            <p:column headerText="Fecha de creacion">
+                <h:outputText value="#{cliente.fechaCreacion}" />
+            </p:column>
+            
+            <p:column headerText="Acciones">
+            	<p:commandButton value="Actualizar" 
+            					 actionListener="#{clienteBean.actualizarCliente}"/>
+    			<p:commandButton value="Eliminar" 
+    							 actionListener="#{clienteBean.eliminarCliente}"/>
+            </p:column>
+            
+<!--             <p:column style="width:3rem;text-align: center"> -->
+<!--                 <p:commandButton update=":form:productDetail" oncomplete="PF('productDialog').show()" -->
+<!--                                  icon="pi pi-search" title="View"> -->
+<!--                     <f:setPropertyActionListener value="#{product}" -->
+<!--                                                  target="#{dtSelectionView.selectedProduct}"/> -->
+<!--                 </p:commandButton> -->
+<!--             </p:column> -->
+        </p:dataTable>
+    </div>
+   		
+   		
+   		
+   		
+   		
+   		
+   		
+	</h:form>
+    </h:body>
+</html>
