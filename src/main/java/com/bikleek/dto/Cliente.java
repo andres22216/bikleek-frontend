@@ -1,9 +1,15 @@
 package com.bikleek.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Cliente {
+public class Cliente implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Long id;
 	private String nombre;
 	private String apellido;

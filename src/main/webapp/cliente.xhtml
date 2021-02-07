@@ -7,41 +7,46 @@
       xmlns:p="http://primefaces.org/ui">
     
     <h:head>
-        <title>Clientes</title>
+        <title>Clientes</title>         
+ 		<h:outputStylesheet library="css" name="headerStyle.css"></h:outputStylesheet>
+<!--  		<h:outputStylesheet library="css" name="primeflex.min.css"></h:outputStylesheet> -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong"/>
     </h:head>
     <h:body>
-    <p:panel>
-    	<h:form>
-    	<h:outputText value="#{clienteBean.mensajeErrorOExito}"></h:outputText>
+    	<h:form id="form-ingreso-datos">
+    	<div class="mensaje-exito">
+    		<h:outputText value="#{clienteBean.mensajeErrorOExito}"></h:outputText>
+    	</div>
+    	
     	<h2>Administración de clientes</h2>
-     	
+
 		<h5>Nombres</h5>
     	<span class="ui-float-label">
 	       <p:inputText id="nombre-input" value="#{clienteBean.nombresClienteNuevo}"/>
-	       <p:outputLabel for="@previous" value="Nombre(s)"/>
+	       <p:outputLabel for="nombre-input" value="Nombre(s)"/>
    		</span>
    		<h5>Apellidos</h5>
     	<span class="ui-float-label">
 	       <p:inputText id="apellido-input" value="#{clienteBean.apellidosClienteNuevo}"/>
-	       <p:outputLabel for="@previous" value="Apellido(s)"/>
+	       <p:outputLabel for="apellido-input" value="Apellido(s)"/>
    		</span>
    		<h5>Correo</h5>
     	<span class="ui-float-label">
 	       <p:inputText id="correo-input" value="#{clienteBean.correoClienteNuevo}"/>
-	       <p:outputLabel for="@previous" value="Correo"/>
+	       <p:outputLabel for="correo-input" value="Correo"/>
    		</span>
    		<h5>Dirección</h5>
     	<span class="ui-float-label">
 	       <p:inputText id="direccion-input" value="#{clienteBean.direccionClienteNuevo}"/>
-	       <p:outputLabel for="@previous" value="Direccion"/>
+	       <p:outputLabel for="direccion-input" value="Direccion"/>
    		</span>
    		<br></br>
-   		<p:commandButton value="Crear Cliente" actionListener="#{clienteBean.crearCliente}"/>
+   		
+   		<h:commandButton value="Crear Cliente" actionListener="#{clienteBean.crearCliente}"/>
    		
    		<div class="card">
         <h2>CLIENTES</h2>
-        	<p:dataTable id="basicDT" var="cliente" value="#{clienteBean.clientes}"
-	            binding="#{clienteBean.tblListaDatos}">
+        	<p:dataTable id="basicDT" var="cliente" value="#{clienteBean.clientes}" binding="#{clienteBean.tblListaDatos}">
 	            <p:column headerText="Identificador">
 	                <h:outputText value="#{cliente.id}" />
 	            </p:column>
@@ -73,19 +78,18 @@
 	            </p:column>
 	            
 	            <p:column headerText="Acciones">
-	            	<p:commandButton value="Editar" rendered="#{!cliente.editable}" 
+	            	<h:commandButton value="Editar" rendered="#{!cliente.editable}" 
 	            					 actionListener="#{clienteBean.habilitarEdicion}"/>
-	            	<p:commandButton value="Actualizar" rendered="#{cliente.editable}" 
+	            	<h:commandButton value="Actualizar" rendered="#{cliente.editable}" 
 	            					 actionListener="#{clienteBean.actualizarCliente}"/>
-	            	<p:commandButton value="Cancelar actualización" rendered="#{cliente.editable}"
+	            	<h:commandButton value="Cancelar actualización" rendered="#{cliente.editable}"
 	            					 actionListener="#{clienteBean.cancelarActualizacion}"/>
-	    			<p:commandButton value="Eliminar" 
+	    			<h:commandButton value="Eliminar" 
 	    							 actionListener="#{clienteBean.eliminarCliente}"/>
 	            </p:column>
         	</p:dataTable>
     	</div>
    		
    		</h:form>
-   		</p:panel>
     </h:body>
 </html>
